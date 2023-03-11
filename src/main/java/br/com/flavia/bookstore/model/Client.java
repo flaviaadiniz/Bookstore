@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Clientes")
+@Table(name = "Clients")
 @Data
 public class Client {
 
@@ -30,7 +30,7 @@ public class Client {
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "address_id")
     private Address address;
 
 }
