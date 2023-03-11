@@ -1,4 +1,4 @@
 package br.com.flavia.bookstore.controller;
 
-public class BookService {
+public class BookController {
 }
