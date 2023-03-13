@@ -1,5 +1,6 @@
 package br.com.flavia.bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,6 +25,7 @@ public class Client {
     private String cpf;
 
     @Column(nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
 
     @Column(nullable = false)
