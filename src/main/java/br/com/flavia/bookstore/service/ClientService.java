@@ -25,7 +25,7 @@ public class ClientService {
         return clientRepository.findById(id);
     }
 
-    public Client updateClient(Long id, Client client) {
+    public Client editById(Long id, Client client) {
         Optional<Client> clientToUpdateOptional = clientRepository.findById(id);
         if (!clientToUpdateOptional.isPresent()) {
             return null;
@@ -61,9 +61,8 @@ public class ClientService {
             clientToUpdate.setAddress(client.getAddress());
         }
 
-        Client updatedClient = clientRepository.save(clientToUpdate);
+        return clientRepository.save(clientToUpdate);
 
-        return updatedClient;
     }
 
     public void deleteById(Long id) {
