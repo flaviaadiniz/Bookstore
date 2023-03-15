@@ -28,7 +28,7 @@ public class ClientService {
     public Client editById(Long id, Client client) {
         Optional<Client> clientToUpdateOptional = clientRepository.findById(id);
         if (clientToUpdateOptional.isEmpty()) {
-            return null;
+            return null; //criar Exception para ID inexistente
         }
 
         Client clientToUpdate = clientToUpdateOptional.get();
@@ -36,36 +36,41 @@ public class ClientService {
         if (client.getFirstName() != null) {
             clientToUpdate.setFirstName(client.getFirstName());
         }
-
         if (client.getLastName() != null) {
             clientToUpdate.setLastName(client.getLastName());
         }
-
         if (client.getCpf() != null) {
             clientToUpdate.setCpf(client.getCpf());
         }
-
         if (client.getBirthDate() != null) {
             clientToUpdate.setBirthDate(client.getBirthDate());
         }
-
         if (client.getPhoneNumber() != null) {
             clientToUpdate.setPhoneNumber(client.getPhoneNumber());
         }
-
         if (client.getEmail() != null) {
             clientToUpdate.setEmail(client.getEmail());
         }
-
         if (client.getAddress() != null) {
             clientToUpdate.setAddress(client.getAddress());
         }
 
         return clientRepository.save(clientToUpdate);
-
     }
 
     public void deleteById(Long id) {
-        clientRepository.deleteById(id);
+        Optional<Client> clientToDeleteOptional = clientRepository.findById(id);
+        if (clientToDeleteOptional.isEmpty()) {
+            //criar exceção para ID inexistente
+        }
+
+        Client clientToDelete = clientToDeleteOptional.get();
+        clientRepository.deleteById(clientToDelete.getId());
+
     }
+
+    public Iterable<Client> findClientByLastName(String lastName) {
+        return clientRepository.findClientByLastName(lastName);
+    }
+
 }
