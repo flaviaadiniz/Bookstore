@@ -5,7 +5,6 @@ import br.com.flavia.bookstore.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,7 +20,7 @@ public class ClientController {
     }
 
     @GetMapping()
-    public List<Client> findAll() {
+    public Iterable<Client> findAll() {
         return clientService.findAll();
     }
 
@@ -29,6 +28,12 @@ public class ClientController {
     public Optional<Client> findById(@PathVariable Long id) {
         return clientService.findById(id);
     }
+
+    @PutMapping("/{id}")
+    public Client updateClient(@PathVariable Long id, @RequestBody Client client) {
+        return clientService.save(client);
+    }
+
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
