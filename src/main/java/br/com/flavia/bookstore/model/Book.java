@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name="Books")
+@Table(name = "Books")
 @Data
 public class Book {
 
@@ -19,9 +19,6 @@ public class Book {
     private String author;
 
     @Column(nullable = false)
-    private String year;
-
-    @Column(nullable = false)
-    private Genre genre;
-
+    private String releaseYear;
+    
 }
