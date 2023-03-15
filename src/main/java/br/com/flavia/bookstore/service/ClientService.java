@@ -27,7 +27,7 @@ public class ClientService {
 
     public Client editById(Long id, Client client) {
         Optional<Client> clientToUpdateOptional = clientRepository.findById(id);
-        if (!clientToUpdateOptional.isPresent()) {
+        if (clientToUpdateOptional.isEmpty()) {
             return null;
         }
 
