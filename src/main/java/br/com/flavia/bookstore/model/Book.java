@@ -20,5 +20,7 @@ public class Book {
 
     @Column(nullable = false)
     private String releaseYear;
-    
+
+    @Column(nullable = false)
+    private Genre genre;
 }
