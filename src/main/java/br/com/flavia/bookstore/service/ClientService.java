@@ -22,7 +22,14 @@ public class ClientService {
     }
 
     public Optional<Client> findById(Long id) {
-        return clientRepository.findById(id);
+        Optional<Client> targetClientOptional = clientRepository.findById(id);
+        if (targetClientOptional.isEmpty()) {
+            System.out.println("ID inexistente!");
+            return Optional.empty(); //criar Exception para ID inexistente
+        }
+        Client targetClient = targetClientOptional.get();
+
+        return clientRepository.findById(targetClient.getId());
     }
 
     public Client editById(Long id, Client client) {
@@ -61,7 +68,8 @@ public class ClientService {
     public void deleteById(Long id) {
         Optional<Client> clientToDeleteOptional = clientRepository.findById(id);
         if (clientToDeleteOptional.isEmpty()) {
-            //criar exceção para ID inexistente
+            System.out.println("ID inexistente"); //criar exceção para ID inexistente
+            Optional.empty();
         }
 
         Client clientToDelete = clientToDeleteOptional.get();
@@ -69,8 +77,29 @@ public class ClientService {
 
     }
 
-    public Iterable<Client> findClientByLastName(String lastName) {
-        return clientRepository.findClientByLastName(lastName);
+    public Iterable<Client> searchClient(String lastName, String firstName) {
+        if (lastName != null && firstName == null) {
+            return clientRepository.findClientByLastName(lastName);
+        }
+        if (firstName != null && lastName == null) {
+            return clientRepository.findClientByFirstName(firstName);
+        }
+        if (lastName != null & firstName != null) {
+            return clientRepository.findClientByLastNameAndFirstName(lastName, firstName);
+        }
+        return null;
     }
 
+    public Optional<Client> findClientByCpf(String cpf) {
+
+        Optional<Client> targetClientOptional = clientRepository.findClientByCpf(cpf);
+        Client targetClient = new Client();
+
+        if (cpf != null && targetClientOptional.isPresent()) {
+            targetClient = targetClientOptional.get();
+        }
+
+        return clientRepository.findClientByCpf(targetClient.getCpf());
+
+    }
 }

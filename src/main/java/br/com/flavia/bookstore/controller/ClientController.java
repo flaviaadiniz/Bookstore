@@ -40,9 +40,17 @@ public class ClientController {
         clientService.deleteById(id);
     }
 
-    @GetMapping("/search")
-    public Iterable<Client> findClientByLastName(@RequestParam String lastName) {
-        return clientService.findClientByLastName(lastName);
+    @GetMapping("/name")
+    public Iterable<Client> searchClient(
+            @RequestParam  (name ="lastName", required = false) String lastName,
+            @RequestParam (name ="firstName", required = false) String firstName
+            ) {
+        return clientService.searchClient(lastName, firstName);
+    }
+
+    @GetMapping("/cpf")
+    public Optional<Client> findClientByCpf(@RequestParam (name = "cpf") String cpf) {
+        return clientService.findClientByCpf(cpf);
     }
 
 }
