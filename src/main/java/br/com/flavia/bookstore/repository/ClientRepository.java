@@ -21,4 +21,13 @@ public interface ClientRepository extends CrudRepository<Client, Long> {
     @Query("SELECT c FROM Client c WHERE c.cpf = ?1")
     Optional<Client> findClientByCpf(String cpf);
 
+    @Query("SELECT c FROM Client c WHERE c.address.city = ?1")
+    Iterable<Client> findClientByAddress_City(String city);
+
+    @Query("SELECT c FROM Client c WHERE c.address.state = ?1")
+    Iterable<Client> findClientByAddress_State(String city);
+
+    @Query("SELECT c FROM Client c WHERE c.address.city = ?1 AND c.address.state = ?2 ")
+    Iterable<Client> findClientByAddress_CityAndAddress_State(String city, String state);
+
 }

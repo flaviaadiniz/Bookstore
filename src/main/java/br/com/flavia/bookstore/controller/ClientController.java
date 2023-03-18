@@ -29,6 +29,27 @@ public class ClientController {
         return clientService.findById(id);
     }
 
+    @GetMapping("/name")
+    public Iterable<Client> searchClient(
+            @RequestParam (name ="lastName", required = false) String lastName,
+            @RequestParam (name ="firstName", required = false) String firstName
+            ) {
+        return clientService.searchClient(lastName, firstName);
+    }
+
+    @GetMapping("/cpf")
+    public Optional<Client> findClientByCpf(@RequestParam (name = "cpf") String cpf) {
+        return clientService.findClientByCpf(cpf);
+    }
+
+    @GetMapping("/address")
+    public Iterable<Client> findClientByAddress(
+            @RequestParam (name = "city", required = false) String city,
+            @RequestParam (name = "state", required = false) String state
+    ) {
+        return clientService.findClientByAddress(city, state);
+    }
+
     @PutMapping("/{id}")
     public Client updateClient(@PathVariable Long id, @RequestBody Client client) {
         return clientService.editById(id, client);
@@ -38,19 +59,6 @@ public class ClientController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         clientService.deleteById(id);
-    }
-
-    @GetMapping("/name")
-    public Iterable<Client> searchClient(
-            @RequestParam  (name ="lastName", required = false) String lastName,
-            @RequestParam (name ="firstName", required = false) String firstName
-            ) {
-        return clientService.searchClient(lastName, firstName);
-    }
-
-    @GetMapping("/cpf")
-    public Optional<Client> findClientByCpf(@RequestParam (name = "cpf") String cpf) {
-        return clientService.findClientByCpf(cpf);
     }
 
 }

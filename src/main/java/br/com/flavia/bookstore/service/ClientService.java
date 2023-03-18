@@ -102,4 +102,17 @@ public class ClientService {
         return clientRepository.findClientByCpf(targetClient.getCpf());
 
     }
+
+    public Iterable<Client> findClientByAddress(String city, String state) {
+        if (city != null && state == null) {
+            return clientRepository.findClientByAddress_City(city);
+        }
+        if (state != null && city == null) {
+            return clientRepository.findClientByAddress_State(state);
+        }
+        if (city != null & state != null) {
+            return clientRepository.findClientByAddress_CityAndAddress_State(city, state);
+        }
+        return null;
+    }
 }
