@@ -32,6 +32,32 @@ public class BookService {
         }
     }
 
+    public Book updateBook(Long id, Book book) {
+        Optional<Book> bookToUpdateOptional = bookRepository.findById(id);
+
+        if (bookToUpdateOptional.isEmpty()) {
+            System.out.println("ID inexistente!");
+            return null;
+        }
+
+        Book bookToUpdate = bookToUpdateOptional.get();
+
+        if (book.getTitle() != null) {
+            bookToUpdate.setTitle(book.getTitle());
+        }
+        if (book.getAuthor() != null) {
+            bookToUpdate.setAuthor(book.getAuthor());
+        }
+        if (book.getReleaseYear() != null) {
+            bookToUpdate.setReleaseYear(book.getReleaseYear());
+        }
+        if (book.getGenre() != null) {
+            bookToUpdate.setGenre(book.getGenre());
+        }
+
+        return bookRepository.save(bookToUpdate);
+    }
+
     public void deleteById(Long id) {
         if (bookRepository.existsById(id)) {
             bookRepository.deleteById(id);
@@ -39,6 +65,5 @@ public class BookService {
             System.out.println("ID inexistente!");
         }
     }
-
 
 }
