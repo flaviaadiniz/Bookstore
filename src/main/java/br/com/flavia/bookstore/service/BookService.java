@@ -34,18 +34,19 @@ public class BookService {
         }
     }
 
-    public Iterable<Book> searchBook(String title, String author, String releaseYear, Genre genre) {
+    public Iterable<Book> searchBook(
+            String title, String author, String releaseYear, Genre genre) {
         if (title != null && author == null && releaseYear == null && genre == null) {
-            return bookRepository.findBookByTitle(title);
+            return bookRepository.findBookByTitleContainingIgnoreCase(title);
         }
         if (title == null && author != null && releaseYear == null && genre == null) {
-            return bookRepository.findBookByAuthor(author);
+            return bookRepository.findBookByAuthorContainingIgnoreCase(author);
         }
         if (title == null && author == null && releaseYear != null && genre == null) {
             return bookRepository.findBookByReleaseYear(releaseYear);
         }
         if (title == null && author == null && releaseYear == null && genre != null) {
-            return bookRepository.findBookByGenre(genre);
+            return bookRepository.findBookByGenreIgnoreCase(genre);
         } else {
             System.out.println("No results");
             return new ArrayList<>();
