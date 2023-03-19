@@ -30,11 +30,11 @@ public class ClientController {
     }
 
     @GetMapping("/name")
-    public Iterable<Client> searchClient(
+    public Iterable<Client> findClientByName(
             @RequestParam (name ="lastName", required = false) String lastName,
             @RequestParam (name ="firstName", required = false) String firstName
             ) {
-        return clientService.searchClient(lastName, firstName);
+        return clientService.findClientByName(lastName, firstName);
     }
 
     @GetMapping("/cpf")

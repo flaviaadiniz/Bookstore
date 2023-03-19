@@ -77,7 +77,7 @@ public class ClientService {
 
     }
 
-    public Iterable<Client> searchClient(String lastName, String firstName) {
+    public Iterable<Client> findClientByName(String lastName, String firstName) {
         if (lastName != null && firstName == null) {
             return clientRepository.findClientByLastName(lastName);
         }
