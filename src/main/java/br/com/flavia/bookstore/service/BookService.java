@@ -1,10 +1,12 @@
 package br.com.flavia.bookstore.service;
 
 import br.com.flavia.bookstore.model.Book;
+import br.com.flavia.bookstore.model.Genre;
 import br.com.flavia.bookstore.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 
@@ -19,7 +21,7 @@ public class BookService {
     }
 
     public Iterable<Book> findAll() {
-            return bookRepository.findAll();
+        return bookRepository.findAll();
     }
 
     public Optional<Book> findById(Long id) {
@@ -29,6 +31,24 @@ public class BookService {
 
             System.out.println("ID inexistente!");
             return Optional.empty();
+        }
+    }
+
+    public Iterable<Book> searchBook(String title, String author, String releaseYear, Genre genre) {
+        if (title != null && author == null && releaseYear == null && genre == null) {
+            return bookRepository.findBookByTitle(title);
+        }
+        if (title == null && author != null && releaseYear == null && genre == null) {
+            return bookRepository.findBookByAuthor(author);
+        }
+        if (title == null && author == null && releaseYear != null && genre == null) {
+            return bookRepository.findBookByReleaseYear(releaseYear);
+        }
+        if (title == null && author == null && releaseYear == null && genre != null) {
+            return bookRepository.findBookByGenre(genre);
+        } else {
+            System.out.println("No results");
+            return new ArrayList<>();
         }
     }
 

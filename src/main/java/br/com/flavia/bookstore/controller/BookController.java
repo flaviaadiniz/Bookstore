@@ -1,6 +1,7 @@
 package br.com.flavia.bookstore.controller;
 
 import br.com.flavia.bookstore.model.Book;
+import br.com.flavia.bookstore.model.Genre;
 import br.com.flavia.bookstore.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,16 @@ public class BookController {
     @GetMapping("/{id}")
     public Optional<Book> findById(@PathVariable Long id) {
         return bookService.findById(id);
+    }
+
+    @GetMapping("/search")
+    public Iterable<Book> searchBook(
+            @RequestParam (name = "title", required = false) String title,
+            @RequestParam (name = "author", required = false) String author,
+            @RequestParam (name = "releaseYear", required = false) String releaseYear,
+            @RequestParam (name = "genre", required = false) Genre genre
+            ) {
+        return bookService.searchBook(title, author, releaseYear, genre);
     }
 
     @PutMapping("/{id}")
