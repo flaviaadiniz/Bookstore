@@ -3,6 +3,7 @@ package br.com.flavia.bookstore.controller;
 import br.com.flavia.bookstore.model.Client;
 import br.com.flavia.bookstore.service.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -15,6 +16,7 @@ public class ClientController {
     private final ClientService clientService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Client save(@RequestBody Client client) {
         return clientService.save(client);
     }
@@ -51,12 +53,14 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Client updateClient(@PathVariable Long id, @RequestBody Client client) {
         return clientService.editById(id, client);
     }
 
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
         clientService.deleteById(id);
     }
