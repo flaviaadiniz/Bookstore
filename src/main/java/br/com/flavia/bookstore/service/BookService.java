@@ -46,7 +46,7 @@ public class BookService {
             return bookRepository.findBookByReleaseYear(releaseYear);
         }
         if (title == null && author == null && releaseYear == null && genre != null) {
-            return bookRepository.findBookByGenreIgnoreCase(genre);
+            return bookRepository.findBookByGenre(genre);
         } else {
             System.out.println("No results");
             return new ArrayList<>();

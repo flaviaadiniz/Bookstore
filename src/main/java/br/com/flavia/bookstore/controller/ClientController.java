@@ -18,6 +18,7 @@ public class ClientController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Client save(@RequestBody Client client) {
+        //criar validação para CPF existente
         return clientService.save(client);
     }
 
