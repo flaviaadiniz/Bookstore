@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 
@@ -35,17 +36,20 @@ public class BookService {
     }
 
     public Iterable<Book> searchBook(
-            String title, String author, String releaseYear, Genre genre) {
-        if (title != null && author == null && releaseYear == null && genre == null) {
+            String title, String authorLastName,String authorFirstName, String releaseYear, Genre genre) {
+        if (title != null && authorLastName == null && authorFirstName == null && releaseYear == null && genre == null) {
             return bookRepository.findBookByTitleContainingIgnoreCase(title);
         }
-        if (title == null && author != null && releaseYear == null && genre == null) {
-            return bookRepository.findBookByAuthorContainingIgnoreCase(author);
+        if (title == null && authorLastName != null && authorFirstName == null && releaseYear == null && genre == null) {
+            return bookRepository.findBookByAuthorLastName(authorLastName);
         }
-        if (title == null && author == null && releaseYear != null && genre == null) {
+        if (title == null && authorLastName == null && authorFirstName != null && releaseYear == null && genre == null) {
+            return bookRepository.findBookByAuthorFirstName(authorFirstName);
+        }
+        if (title == null && authorLastName == null && authorFirstName == null && releaseYear != null && genre == null) {
             return bookRepository.findBookByReleaseYear(releaseYear);
         }
-        if (title == null && author == null && releaseYear == null && genre != null) {
+        if (title == null && authorLastName == null && authorFirstName == null && releaseYear == null && genre != null) {
             return bookRepository.findBookByGenre(genre);
         } else {
             System.out.println("No results");
@@ -66,8 +70,11 @@ public class BookService {
         if (book.getTitle() != null) {
             bookToUpdate.setTitle(book.getTitle());
         }
-        if (book.getAuthor() != null) {
-            bookToUpdate.setAuthor(book.getAuthor());
+        if (book.getAuthorFirstName() != null) {
+            bookToUpdate.setAuthorFirstName(book.getAuthorFirstName());
+        }
+        if (book.getAuthorLastName() != null) {
+            bookToUpdate.setAuthorLastName(book.getAuthorLastName());
         }
         if (book.getReleaseYear() != null) {
             bookToUpdate.setReleaseYear(book.getReleaseYear());

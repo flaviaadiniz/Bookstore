@@ -7,7 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 public interface BookRepository extends CrudRepository<Book, Long> {
 
     Iterable<Book> findBookByTitleContainingIgnoreCase(String title);
-    Iterable<Book> findBookByAuthorContainingIgnoreCase(String author);
+    Iterable<Book> findBookByAuthorLastName(String authorLastName);
+    Iterable<Book> findBookByAuthorFirstName(String authorFirstName);
     Iterable<Book> findBookByReleaseYear(String releaseYear);
     Iterable<Book> findBookByGenre(Genre genre);
 

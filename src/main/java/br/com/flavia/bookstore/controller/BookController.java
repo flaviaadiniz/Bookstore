@@ -36,11 +36,12 @@ public class BookController {
     @GetMapping("/search")
     public Iterable<Book> searchBook(
             @RequestParam (name = "title", required = false) String title,
-            @RequestParam (name = "author", required = false) String author,
+            @RequestParam (name = "authorLastName", required = false) String authorLastName,
+            @RequestParam (name = "authorFirstName", required = false) String authorFirstName,
             @RequestParam (name = "releaseYear", required = false) String releaseYear,
             @RequestParam (name = "genre", required = false) Genre genre
             ) {
-        return bookService.searchBook(title, author, releaseYear, genre);
+        return bookService.searchBook(title, authorLastName, authorFirstName, releaseYear, genre);
     }
 
     @PutMapping("/{id}")
