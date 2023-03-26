@@ -39,9 +39,10 @@ public class BookController {
             @RequestParam (name = "authorLastName", required = false) String authorLastName,
             @RequestParam (name = "authorFirstName", required = false) String authorFirstName,
             @RequestParam (name = "releaseYear", required = false) String releaseYear,
-            @RequestParam (name = "genre", required = false) Genre genre
+            @RequestParam (name = "genre", required = false) Genre genre,
+            @RequestParam (name = "isbn", required = false) String isbn
             ) {
-        return bookService.searchBook(title, authorLastName, authorFirstName, releaseYear, genre);
+        return bookService.searchBook(title, authorLastName, authorFirstName, releaseYear, genre, isbn);
     }
 
     @PutMapping("/{id}")

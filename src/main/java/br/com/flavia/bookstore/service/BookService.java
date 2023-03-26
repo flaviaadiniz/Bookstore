@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 
 
@@ -29,28 +28,43 @@ public class BookService {
         if (bookRepository.existsById(id)) {
             return bookRepository.findById(id);
         } else {
-
             System.out.println("ID inexistente!");
             return Optional.empty();
         }
     }
 
     public Iterable<Book> searchBook(
-            String title, String authorLastName,String authorFirstName, String releaseYear, Genre genre) {
-        if (title != null && authorLastName == null && authorFirstName == null && releaseYear == null && genre == null) {
+            String title, String authorLastName,String authorFirstName, String releaseYear, Genre genre,
+            String isbn) {
+
+        if (title != null && authorLastName == null && authorFirstName == null && releaseYear == null
+                && genre == null && isbn == null) {
             return bookRepository.findBookByTitleContainingIgnoreCase(title);
         }
-        if (title == null && authorLastName != null && authorFirstName == null && releaseYear == null && genre == null) {
-            return bookRepository.findBookByAuthorLastName(authorLastName);
+
+        if (title == null && authorLastName != null && authorFirstName == null && releaseYear == null
+                && genre == null && isbn == null) {
+            return bookRepository.findBookByAuthorLastNameContainingIgnoreCase(authorLastName);
         }
-        if (title == null && authorLastName == null && authorFirstName != null && releaseYear == null && genre == null) {
-            return bookRepository.findBookByAuthorFirstName(authorFirstName);
+
+        if (title == null && authorLastName == null && authorFirstName != null && releaseYear == null
+                && genre == null && isbn == null) {
+            return bookRepository.findBookByAuthorFirstNameContainingIgnoreCase(authorFirstName);
         }
-        if (title == null && authorLastName == null && authorFirstName == null && releaseYear != null && genre == null) {
+
+        if (title == null && authorLastName == null && authorFirstName == null && releaseYear != null
+                && genre == null && isbn == null) {
             return bookRepository.findBookByReleaseYear(releaseYear);
         }
-        if (title == null && authorLastName == null && authorFirstName == null && releaseYear == null && genre != null) {
+
+        if (title == null && authorLastName == null && authorFirstName == null && releaseYear == null
+                && genre != null && isbn == null) {
             return bookRepository.findBookByGenre(genre);
+        }
+
+        if (title == null && authorLastName == null && authorFirstName == null && releaseYear == null
+                && genre == null && isbn != null) {
+            return bookRepository.findBookByIsbn(isbn);
         } else {
             System.out.println("No results");
             return new ArrayList<>();
@@ -81,6 +95,12 @@ public class BookService {
         }
         if (book.getGenre() != null) {
             bookToUpdate.setGenre(book.getGenre());
+        }
+        if (book.getIsbn() != null) {
+            bookToUpdate.setIsbn(book.getIsbn());
+        }
+        if (book.getPages() != null) {
+            bookToUpdate.setPages(book.getPages());
         }
 
         return bookRepository.save(bookToUpdate);
