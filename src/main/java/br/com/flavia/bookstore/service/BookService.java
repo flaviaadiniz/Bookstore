@@ -37,33 +37,22 @@ public class BookService {
             String title, String authorLastName,String authorFirstName, String releaseYear, Genre genre,
             String isbn) {
 
-        if (title != null && authorLastName == null && authorFirstName == null && releaseYear == null
-                && genre == null && isbn == null) {
+        if (title != null) {
             return bookRepository.findBookByTitleContainingIgnoreCase(title);
         }
-
-        if (title == null && authorLastName != null && authorFirstName == null && releaseYear == null
-                && genre == null && isbn == null) {
+        if (authorLastName != null) {
             return bookRepository.findBookByAuthorLastNameContainingIgnoreCase(authorLastName);
         }
-
-        if (title == null && authorLastName == null && authorFirstName != null && releaseYear == null
-                && genre == null && isbn == null) {
+        if (authorFirstName != null) {
             return bookRepository.findBookByAuthorFirstNameContainingIgnoreCase(authorFirstName);
         }
-
-        if (title == null && authorLastName == null && authorFirstName == null && releaseYear != null
-                && genre == null && isbn == null) {
+        if (releaseYear != null) {
             return bookRepository.findBookByReleaseYear(releaseYear);
         }
-
-        if (title == null && authorLastName == null && authorFirstName == null && releaseYear == null
-                && genre != null && isbn == null) {
+        if (genre != null) {
             return bookRepository.findBookByGenre(genre);
         }
-
-        if (title == null && authorLastName == null && authorFirstName == null && releaseYear == null
-                && genre == null && isbn != null) {
+        if (isbn != null) {
             return bookRepository.findBookByIsbn(isbn);
         } else {
             System.out.println("No results");
