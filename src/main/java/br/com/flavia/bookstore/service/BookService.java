@@ -3,7 +3,6 @@ package br.com.flavia.bookstore.service;
 import br.com.flavia.bookstore.model.Book;
 import br.com.flavia.bookstore.model.Genre;
 import br.com.flavia.bookstore.repository.BookRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,10 +10,13 @@ import java.util.Optional;
 
 
 @Service
-@RequiredArgsConstructor
 public class BookService {
 
-    private final BookRepository bookRepository;
+    private BookRepository bookRepository;
+
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     public Book save(Book book) {
         return bookRepository.save(book);

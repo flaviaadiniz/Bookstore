@@ -2,7 +2,6 @@ package br.com.flavia.bookstore.controller;
 
 import br.com.flavia.bookstore.model.Client;
 import br.com.flavia.bookstore.service.ClientService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +9,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clients")
-@RequiredArgsConstructor
 public class ClientController {
 
-    private final ClientService clientService;
+    private ClientService clientService;
+
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

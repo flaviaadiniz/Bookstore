@@ -2,16 +2,18 @@ package br.com.flavia.bookstore.service;
 
 import br.com.flavia.bookstore.model.Client;
 import br.com.flavia.bookstore.repository.ClientRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class ClientService {
 
-    private final ClientRepository clientRepository;
+    private ClientRepository clientRepository;
+
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
 
     public Client save(Client client) {
         return clientRepository.save(client);
@@ -69,12 +71,10 @@ public class ClientService {
         Optional<Client> clientToDeleteOptional = clientRepository.findById(id);
         if (clientToDeleteOptional.isEmpty()) {
             System.out.println("ID inexistente"); //criar exceção para ID inexistente
-            Optional.empty();
         }
 
         Client clientToDelete = clientToDeleteOptional.get();
         clientRepository.deleteById(clientToDelete.getId());
-
     }
 
     public Iterable<Client> findClientByName(String lastName, String firstName) {

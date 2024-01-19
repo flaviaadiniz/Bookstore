@@ -3,7 +3,6 @@ package br.com.flavia.bookstore.controller;
 import br.com.flavia.bookstore.model.Book;
 import br.com.flavia.bookstore.model.Genre;
 import br.com.flavia.bookstore.service.BookService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +11,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/books")
-@RequiredArgsConstructor
 public class BookController {
 
-    private final BookService bookService;
+    private BookService bookService;
+
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
